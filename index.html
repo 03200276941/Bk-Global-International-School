@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bk Global International School - Admission Form</title>
+  <style>
+    /* ===== CSS Variables ===== */
+    :root {
+      --primary-color: #2e7d32;
+      --secondary-color: #1b5e20;
+      --accent-color: #81c784;
+      --text-dark: #2d3436;
+      --text-medium: #636e72;
+      --border-color: #dfe6e9;
+      --background-light: #f8f9fa;
+    }
+
+    /* ===== Base Styles ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #f0faf0;
+      line-height: 1.6;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    /* ===== Form Container ===== */
+    .form-container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      padding: 2.5rem;
+      max-width: 680px;
+      width: 100%;
+      margin: 2rem;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-header h1 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    /* ===== Form Sections ===== */
+    .form-section {
+      margin-bottom: 2rem;
+      background: var(--background-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 1.2em;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    /* ===== Form Grid & Elements ===== */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      background: white;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* ===== File Upload ===== */
+    .file-upload-container {
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .file-upload-container:hover {
+      border-color: var(--primary-color);
+      background: rgba(46, 125, 50, 0.05);
+    }
+
+    .file-upload-input {
+      display: none;
+    }
+
+    .preview-image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    /* ===== ID Card Styles ===== */
+    .id-card-container {
+      display: none;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    .id-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9f5eb 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      border: 2px solid var(--primary-color);
+    }
+
+    .id-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      margin: 0 auto 1rem;
+      object-fit: cover;
+      border: 2px solid var(--primary-color);
+    }
+
+    .id-details {
+      margin-top: 1.5rem;
+    }
+
+    .id-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .id-label {
+      font-weight: 600;
+      color: var(--text-dark);
+      min-width: 120px;
+    }
+
+    /* ===== Buttons ===== */
+    .submit-section {
+      margin-top: 2rem;
+    }
+
+    button[type="submit"], .print-button {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button[type="submit"]:hover, .print-button:hover {
+      background: var(--secondary-color);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+    }
+
+    .back-button {
+      margin-top: 2rem;
+      text-align: center;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Hide buttons during download */
+    .hide-buttons .back-button {
+      display: none;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 768px) {
+      .form-container { padding: 1.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .back-button { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .form-container { padding: 1rem; margin: 1rem; }
+      .form-header h1 { font-size: 1.5rem; }
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      .id-card-container, .id-card-container * { visibility: visible; }
+      .id-card-container { position: absolute; left: 0; top: 0; }
+      .back-button { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Bk Global International School</h1>
+      <p>Admission Application Form - Academic Year 2024-2025</p>
+    </div>
+
+    <form id="admissionForm">
+      <!-- Student Information -->
+      <div class="form-section">
+        <div class="section-title">Student Information</div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="studentName">Full Name</label>
+            <input type="text" id="studentName" name="studentName" placeholder="Student's full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="grade">Grade Applying For</label>
+            <input type="text" id="grade" name="grade" placeholder="Grade level" required>
+          </div>
+
+          <div class="form-group">
+            <label for="studentCNIC">Student CNIC</label>
+            <input type="text" id="studentCNIC" name="studentCNIC" placeholder="Student's CNIC number" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Student Photo</label>
+            <div class="file-upload-container" onclick="document.getElementById('photoUpload').click()">
+              <span>Click to upload student photo (120x120px)</span>
+              <input type="file" id="photoUpload" class="file-upload-input" accept="image/*" required>
+              <img id="imagePreview" class="preview-image" alt="Preview">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent/Guardian Information -->
+      <div class="form-section">
+        <div class="section-title">Parent/Guardian Information</div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="parentName">Full Name</label>
+            <input type="text" id="parentName" name="parentName" placeholder="Parent/guardian's name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="parentCNIC">Parent CNIC</label>
+            <input type="text" id="parentCNIC" name="parentCNIC" placeholder="Parent's CNIC number" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="03200276941" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="address">Residential Address</label>
+            <textarea id="address" name="address" rows="3" placeholder="Complete address" required></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="form-section">
+        <div class="section-title">Additional Details</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="previousSchool">Previous School</label>
+            <input type="text" id="previousSchool" name="previousSchool" placeholder="School name (if applicable)">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="medicalInfo">Medical Information</label>
+            <textarea id="medicalInfo" name="medicalInfo" rows="4" placeholder="Medical conditions/allergies"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-section">
+        <button type="submit">Submit Application</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ID Card -->
+  <div class="id-card-container">
+    <div class="id-card">
+      <div class="id-header">
+        <h2>Bk Global International School</h2>
+        <p>Student ID Card 2024-2025</p>
+      </div>
+      <img id="idPhoto" class="id-photo" alt="Student Photo">
+      <div class="id-details">
+        <div class="id-row">
+          <span class="id-label">Name:</span>
+          <span id="id-name">-</span>
+        </div>
+        <div class="id-row">
+          <span class="id-label">Grade:</span>
+          <span id="id-grade">-</span>
+        </div>
+        <div class="id-row">
+          <span class="id-label">DOB:</span>
+          <span id="id-dob">-</span>
+        </div>
+        <div class="id-row">
+          <span class="id-label">Parent:</span>
+          <span id="id-parent">-</span>
+        </div>
+        <div class="id-row">
+          <span class="id-label">Student CNIC:</span>
+          <span id="id-student-cnic">-</span>
+        </div>
+        <div class="id-row">
+          <span class="id-label">Parent CNIC:</span>
+          <span id="id-parent-cnic">-</span>
+        </div>
+      </div>
+      <div class="back-button">
+        <button onclick="window.location.reload()" class="print-button">Edit Form</button>
+        <button onclick="downloadIDCard()" class="print-button">Download ID</button>
+        <button onclick="window.print()" class="print-button">Print ID</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    // Image Upload Handling
+    const photoUpload = document.getElementById('photoUpload');
+    const imagePreview = document.getElementById('imagePreview');
+
+    photoUpload.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Form Submission
+    document.getElementById('admissionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById('studentName').value,
+        grade: document.getElementById('grade').value,
+        dob: document.getElementById('dob').value,
+        parent: document.getElementById('parentName').value,
+        studentCNIC: document.getElementById('studentCNIC').value,
+        parentCNIC: document.getElementById('parentCNIC').value,
+        photo: imagePreview.src
+      };
+
+      // Update ID Card
+      document.getElementById('id-name').textContent = formData.name;
+      document.getElementById('id-grade').textContent = `Grade ${formData.grade}`;
+      document.getElementById('id-dob').textContent = new Date(formData.dob).toLocaleDateString();
+      document.getElementById('id-parent').textContent = formData.parent;
+      document.getElementById('id-student-cnic').textContent = formData.studentCNIC;
+      document.getElementById('id-parent-cnic').textContent = formData.parentCNIC;
+      document.getElementById('idPhoto').src = formData.photo;
+
+      // Show ID Card
+      document.querySelector('.form-container').style.display = 'none';
+      document.querySelector('.id-card-container').style.display = 'block';
+    });
+
+    // ID Card Download
+    function downloadIDCard() {
+      // Hide buttons before capturing
+      const idCardContainer = document.querySelector('.id-card-container');
+      idCardContainer.classList.add('hide-buttons');
+
+      html2canvas(document.querySelector('.id-card')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'student-id.png';
+        link.href = canvas.toDataURL();
+        link.click();
+
+        // Restore buttons after download
+        idCardContainer.classList.remove('hide-buttons');
+      });
+    }
+    
+  </script>
+</body>
+</html>
